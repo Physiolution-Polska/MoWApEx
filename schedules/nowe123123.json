@@ -1,0 +1,14 @@
+{
+    "name": "nowe123123",
+    "description": "",
+    "schedule": [
+        {
+            "interval": 300,
+            "pH": 7.48
+        },
+        {
+            "interval": 420,
+            "pH": 10.0
+        }
+    ]
+}

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>pH manager</title>
+    <!-- import plugin script -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-dragdata@1.0.1/dist/chartjs-plugin-dragData.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@0.7.4"></script>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'css/main.css') }}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+
+
+    <script type="text/javascript" src="{{ url_for('static', filename = 'json2.js') }}"></script>
+</head>
+<body onload="onStart()">
+<!-- bar chart canvas element -->
+<div id="channelButtons" class="tab">
+</div>
+<div id="divchart" class="chart-container panel-container">
+    <canvas id="myChart" width="1800" height="400"></canvas>
+    <div class="recalibrateBox">
+        <button id="recalibrate">Recalibrate</button>
+        <span>Last calibration: <span class="lastCalibrationLabel"></span></span>
+    </div>
+</div>
+
+<div class="panel-container">
+    <div class="parent-table">
+        <table id="tblData" style="width:100%">
+            <tr id="firstRow">
+                <td>Index</td>
+
+
+            </tr>
+            <tr id="secondRow">
+                <td>Expected pH</td>
+
+
+            </tr>
+            <tr id="thirdRow">
+                <td>Interval [hh:mm]</td>
+            </tr>
+            <tr id="fourthRow">
+                <td>Time [hh:mm]</td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <button id="add">Add point at the end</button>
+        <div id="managePoints">
+            <button id="addAfterPoint">Add a point to the right of the selected point</button>
+            <button id="removePoint">Remove selected point</button>
+        </div>
+        <br/>
+        <br/>
+        <div>
+            <button id="openModal">Open template list</button>
+            <button id="saveTemplate">Save template</button>
+        </div>
+    </div>
+</div>
+<div id="startContainer" class="panel-container">
+    <div>
+        <span id="channelCheckTitle"></span>
+        <div id="channelCheckboxes">
+        </div>
+        <button id="start" hidden>Start process for channels</button>
+        <button id="stop" hidden>Stop process for channels</button>
+        <button id="pause" hidden>Pause current channel</button>
+        <button id="resume" hidden>Resume current channel</button>
+		<button id="start_selected">Start process for channels from selected point</button>
+		
+    </div>
+</div>
+<div id="monitoringContainer" class="panel-container hidden">
+    <button id="startMonitoring" hidden>Start monitoring</button>
+    <button id="stopMonitoring" hidden>Stop monitoring</button>
+</div>
+
+<div id="grafana-container" class="panel-container grafana-container">
+    <iframe id="grafana" class="grafana-frame" style="height: 700px" frameborder="0"></iframe>
+</div>
+
+<div class="parent-modal" id="modal">
+    <div class="modal">
+        <div class="close" id="closeModal"></div>
+        <div>
+            <label>Templates</label>
+        </div>
+        <div>
+            <select name="templates" id="templatesList" size=8>
+            </select>
+        </div>
+        <div>
+            <button id="loadTemp">Load template</button>
+            <button id="deleteTemp">Delete template</button>
+        </div>
+    </div>
+</div>
+
+<div class="parent-modal" id="recalibrateModal">
+    <div class="modal">
+        <div class="close" id="closeRecalibrateModal"></div>
+        <div class="temperature-area">
+            <div>
+                <input type="checkbox" id="checkboxTemp" disabled>
+                <label id="labelTemp" for="checkboxTemp">Temperature (inner sensor)</label>
+            </div>
+            <input type="text" id="temp" value="0" size="1"/>
+            <button id="temp_button" onclick="updateSensor()">Update</button>
+        </div>
+
+        <section class="cal-area">
+            <div class="cal">
+                <label for="ph1">PH1</label>
+                <input type="text" id="ph1"
+                       value={{ data['interface']['ph1'] }}  size="1"/>
+                <input id="cal1_button" type="submit" name="cal1_button" value="CAL1">
+            </div>
+            <div class="cal">
+                <label for="ph2">PH2</label>
+                <input type="text" id="ph2"
+                       value={{ data['interface']['ph2']  }}  size="1"/>
+                <input id="cal2_button" type="submit" name="cal2_button" value="CAL2">
+            </div>
+        </section>
+
+        <button id="calibrate_button" class="calibrate_button" disabled>CALIBRATE</button>
+        <p>Last calibration: <span class="lastCalibrationLabel"></span></p>
+        <p>Deviation: <span id="Deviation"></span></p>
+    </div>
+</div>
+
+<script>
+    let numberOfChannels = {{ numberOfChannels }};
+    let legend = "{{ legend }}";
+    let grafanaUrls = {{ grafana_urls|tojson }};
+
+   
+</script>
+<script type="text/javascript" src="{{ url_for('static', filename = 'js/time_chart.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename = 'js/calibrate.js') }}"></script>
+</body>
+</html>
+

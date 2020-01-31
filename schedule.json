@@ -1,0 +1,462 @@
+{
+    "name": "last_schedule",
+    "description": "last run schedule_data for one of channels",
+    "schedule": [
+        {
+            "interval": 600,
+            "pH": 5.81
+        },
+        {
+            "interval": 600,
+            "pH": 6.01
+        },
+        {
+            "interval": 600,
+            "pH": 6.05
+        },
+        {
+            "interval": 600,
+            "pH": 6.17
+        },
+        {
+            "interval": 600,
+            "pH": 6.3
+        },
+        {
+            "interval": 600,
+            "pH": 6.34
+        },
+        {
+            "interval": 600,
+            "pH": 6.54
+        },
+        {
+            "interval": 600,
+            "pH": 6.71
+        },
+        {
+            "interval": 600,
+            "pH": 6.95
+        },
+        {
+            "interval": 600,
+            "pH": 7.1
+        },
+        {
+            "interval": 600,
+            "pH": 7.23
+        },
+        {
+            "interval": 600,
+            "pH": 7.36
+        },
+        {
+            "interval": 600,
+            "pH": 7.4
+        },
+        {
+            "interval": 600,
+            "pH": 7.48
+        },
+        {
+            "interval": 600,
+            "pH": 7.58
+        },
+        {
+            "interval": 600,
+            "pH": 7.57
+        },
+        {
+            "interval": 1200,
+            "pH": 7.66
+        },
+        {
+            "interval": 600,
+            "pH": 7.68
+        },
+        {
+            "interval": 600,
+            "pH": 7.69
+        },
+        {
+            "interval": 600,
+            "pH": 7.68
+        },
+        {
+            "interval": 600,
+            "pH": 7.65
+        },
+        {
+            "interval": 600,
+            "pH": 7.65
+        },
+        {
+            "interval": 600,
+            "pH": 7.43
+        },
+        {
+            "interval": 600,
+            "pH": 6.5
+        },
+        {
+            "interval": 600,
+            "pH": 6.96
+        },
+        {
+            "interval": 600,
+            "pH": 7.85
+        },
+        {
+            "interval": 600,
+            "pH": 6.88
+        },
+        {
+            "interval": 600,
+            "pH": 6.96
+        },
+        {
+            "interval": 600,
+            "pH": 6.79
+        },
+        {
+            "interval": 1200,
+            "pH": 6.76
+        },
+        {
+            "interval": 600,
+            "pH": 6.55
+        },
+        {
+            "interval": 600,
+            "pH": 6.34
+        },
+        {
+            "interval": 600,
+            "pH": 6.35
+        },
+        {
+            "interval": 600,
+            "pH": 6.69
+        },
+        {
+            "interval": 600,
+            "pH": 6.34
+        },
+        {
+            "interval": 600,
+            "pH": 6.96
+        },
+        {
+            "interval": 600,
+            "pH": 7.17
+        },
+        {
+            "interval": 600,
+            "pH": 6.88
+        },
+        {
+            "interval": 600,
+            "pH": 6.96
+        },
+        {
+            "interval": 600,
+            "pH": 6.55
+        },
+        {
+            "interval": 600,
+            "pH": 6.76
+        },
+        {
+            "interval": 600,
+            "pH": 6.44
+        },
+        {
+            "interval": 600,
+            "pH": 6.55
+        },
+        {
+            "interval": 600,
+            "pH": 6.96
+        },
+        {
+            "interval": 600,
+            "pH": 6.76
+        },
+        {
+            "interval": 600,
+            "pH": 6.45
+        },
+        {
+            "interval": 600,
+            "pH": 6.89
+        },
+        {
+            "interval": 600,
+            "pH": 6.34
+        },
+        {
+            "interval": 600,
+            "pH": 6.55
+        },
+        {
+            "interval": 600,
+            "pH": 6.76
+        },
+        {
+            "interval": 600,
+            "pH": 6.96
+        },
+        {
+            "interval": 600,
+            "pH": 6.69
+        },
+        {
+            "interval": 1200,
+            "pH": 6.34
+        },
+        {
+            "interval": 600,
+            "pH": 6.14
+        },
+        {
+            "interval": 600,
+            "pH": 6.75
+        },
+        {
+            "interval": 600,
+            "pH": 6.53
+        },
+        {
+            "interval": 600,
+            "pH": 7.38
+        },
+        {
+            "interval": 600,
+            "pH": 6.96
+        },
+        {
+            "interval": 600,
+            "pH": 6.76
+        },
+        {
+            "interval": 4920,
+            "pH": 9.61
+        },
+        {
+            "interval": 7620,
+            "pH": 10.66
+        },
+        {
+            "interval": 600,
+            "pH": 6.45
+        },
+        {
+            "interval": 1200,
+            "pH": 6.55
+        },
+        {
+            "interval": 600,
+            "pH": 6.34
+        },
+        {
+            "interval": 600,
+            "pH": 6.15
+        },
+        {
+            "interval": 600,
+            "pH": 6.29
+        },
+        {
+            "interval": 600,
+            "pH": 6.14
+        },
+        {
+            "interval": 600,
+            "pH": 5.79
+        },
+        {
+            "interval": 600,
+            "pH": 6.07
+        },
+        {
+            "interval": 600,
+            "pH": 5.93
+        },
+        {
+            "interval": 600,
+            "pH": 5.62
+        },
+        {
+            "interval": 600,
+            "pH": 5.92
+        },
+        {
+            "interval": 1200,
+            "pH": 5.93
+        },
+        {
+            "interval": 600,
+            "pH": 5.72
+        },
+        {
+            "interval": 600,
+            "pH": 5.93
+        },
+        {
+            "interval": 600,
+            "pH": 6.33
+        },
+        {
+            "interval": 600,
+            "pH": 5.93
+        },
+        {
+            "interval": 600,
+            "pH": 5.98
+        },
+        {
+            "interval": 600,
+            "pH": 5.93
+        },
+        {
+            "interval": 600,
+            "pH": 6.14
+        },
+        {
+            "interval": 600,
+            "pH": 6.18
+        },
+        {
+            "interval": 600,
+            "pH": 7.17
+        },
+        {
+            "interval": 600,
+            "pH": 7.07
+        },
+        {
+            "interval": 600,
+            "pH": 6.34
+        },
+        {
+            "interval": 600,
+            "pH": 6.14
+        },
+        {
+            "interval": 600,
+            "pH": 5.93
+        },
+        {
+            "interval": 600,
+            "pH": 5.97
+        },
+        {
+            "interval": 600,
+            "pH": 6.14
+        },
+        {
+            "interval": 600,
+            "pH": 5.93
+        },
+        {
+            "interval": 600,
+            "pH": 5.75
+        },
+        {
+            "interval": 600,
+            "pH": 6.55
+        },
+        {
+            "interval": 600,
+            "pH": 7.79
+        },
+        {
+            "interval": 600,
+            "pH": 6.48
+        },
+        {
+            "interval": 600,
+            "pH": 6.34
+        },
+        {
+            "interval": 600,
+            "pH": 6.76
+        },
+        {
+            "interval": 600,
+            "pH": 7.1
+        },
+        {
+            "interval": 600,
+            "pH": 6.57
+        },
+        {
+            "interval": 600,
+            "pH": 6.78
+        },
+        {
+            "interval": 600,
+            "pH": 6.96
+        },
+        {
+            "interval": 600,
+            "pH": 7.17
+        },
+        {
+            "interval": 600,
+            "pH": 7.02
+        },
+        {
+            "interval": 600,
+            "pH": 7.38
+        },
+        {
+            "interval": 600,
+            "pH": 6.96
+        },
+        {
+            "interval": 600,
+            "pH": 7.18
+        },
+        {
+            "interval": 600,
+            "pH": 6.76
+        },
+        {
+            "interval": 1800,
+            "pH": 7.17
+        },
+        {
+            "interval": 1200,
+            "pH": 6.96
+        },
+        {
+            "interval": 600,
+            "pH": 7.38
+        },
+        {
+            "interval": 600,
+            "pH": 7.35
+        },
+        {
+            "interval": 600,
+            "pH": 7.17
+        },
+        {
+            "interval": 600,
+            "pH": 6.84
+        },
+        {
+            "interval": 600,
+            "pH": 7.79
+        },
+        {
+            "interval": 4980,
+            "pH": 6.35
+        },
+        {
+            "interval": 4980,
+            "pH": 6.35
+        }
+    ]
+}
