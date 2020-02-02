@@ -1,11 +1,8 @@
-import time
-import subprocess
 import contextlib
 import json
+import subprocess
+import time
 from typing import Optional
-import sys
-
-from schedule import *
 
 
 class Process:
@@ -20,8 +17,10 @@ class Process:
         self._pause_time = None
 
     def _kill_process(self):
-        #self._process.kill()
-        print("zabicie procesu")
+        bash_command = "./stopRealizeScheduledPh.py %s" % (self._channel + 1)
+        working_dir = "/home/pi/physio-grad/software/"
+        subprocess.Popen(bash_command.split(), cwd=working_dir, stdout=subprocess.PIPE)
+
         return True
 
     def _start_process(self):
@@ -33,13 +32,17 @@ class Process:
             json.dump({
                 "name": "last_schedule",
                 "description": "last run schedule_data for one of channels",
-                "schedule": schedule_data.get_output()
+                "schedule_data": schedule_data.get_output()
             }, file, indent=4)
 
         sleep_time = self._schedule.get_duration()
         if self._pause:
             sleep_time = 999999999
-        bash_command = "sleep {}".format(sleep_time)
+
+        bash_command = "./realizeScheduledPh.py %s %s" % (
+        self._channel + 1, "/home/pi/physiolution_schedule_calibrate/schedule.json")
+        working_dir = "/home/pi/physio-grad/software/"
+        self._process = subprocess.Popen(bash_command.split(), cwd=working_dir, stdout=subprocess.PIPE)
 
         print("proces został wystartowany")
         return True
@@ -75,9 +78,6 @@ class Process:
         self._pause = True
         self._pause_time = time.time()
 
-        self._kill_process()
-        self.wait_for_process()
-
         self._schedule.set_offset_time(self._pause_time - self._start_time + self._schedule.get_offset_time())
         self._start_process()
 
@@ -86,9 +86,6 @@ class Process:
     def resume(self):
         print("try resume")
         self._pause = False
-
-        self._kill_process()
-        self.wait_for_process()
 
         self._start_time = time.time()
         self._start_process()
@@ -102,18 +99,19 @@ class Process:
         self._schedule = schedule
         self._start_time = time.time()
         self._start_process()
-                   
+
     def get_process_info(self):
         return {
             "channel": self._channel,
             "alive": self.is_alive(),
             "pause": self._pause,
-            "start_time": self._start_time, # czas wystartowania procesu (zmienia się po pauzie)
-            "current_time": time.time(), # aktualny czas serwera (potrzebny do obliczenia różnicy czasu)
-            "pause_time": self._pause_time, # czas wciśnięcia pauzy (myślę, że zbędny)
+            "start_time": self._start_time,  # czas wystartowania procesu (zmienia się po pauzie)
+            "current_time": time.time(),  # aktualny czas serwera (potrzebny do obliczenia różnicy czasu)
+            "pause_time": self._pause_time,  # czas wciśnięcia pauzy (myślę, że zbędny)
 
-            "offset_time": self._schedule.get_offset_time(), # od początku ma 0 lub czas punktu od jakiego zaczynamy (zmienia się w momencie wciśnięcia pauzy o czas o ile został zatrzymany)
-            "end_time": self._schedule.get_end_time() # ile sekund trwa cały proces
+            "offset_time": self._schedule.get_offset_time(),
+        # od początku ma 0 lub czas punktu od jakiego zaczynamy (zmienia się w momencie wciśnięcia pauzy o czas o ile został zatrzymany)
+            "end_time": self._schedule.get_end_time()  # ile sekund trwa cały proces
         }
 
 
@@ -135,10 +133,6 @@ class ProcessManager:
         if process is None:
             process = Process(channel)
             self.process_map[channel] = process
-            workingDir = "/home/pi/physio-grad/software/"
-            bashCommand = "./realizeScheduledPh.py %s %s" % ( channel+1, "/home/pi/physiolution_schedule_calibrate/schedule.json" )
-            subprocess.Popen(bashCommand.split(), cwd=workingDir, stdout=subprocess.PIPE)
-
         process.start(schedule)
         return process
 
@@ -147,28 +141,16 @@ class ProcessManager:
         if process is not None:
             process.stop()
             del self.process_map[channel]
-        workingDir = "/home/pi/physio-grad/software/"
-        bashCommand = "./stopRealizeScheduledPh.py %s" % (channel+1)
-        subprocess.Popen(bashCommand.split(), cwd=workingDir, stdout=subprocess.PIPE)
-
 
     def pause_process(self, channel):
         process = self.get_process(channel)
         if process is not None:
             process.pause()
-        workingDir = "/home/pi/physio-grad/software/"
-        bashCommand = "./realizeScheduledPh.py %s %s" % ( channel+1, "/home/pi/physiolution_schedule_calibrate/schedule.json" )
-        subprocess.Popen(bashCommand.split(), cwd=workingDir, stdout=subprocess.PIPE)
-
 
     def resume_process(self, channel):
         process = self.get_process(channel)
         if process is not None:
             process.resume()
-        workingDir = "/home/pi/physio-grad/software/"
-        bashCommand = "./realizeScheduledPh.py %s %s" % ( channel+1, "/home/pi/physiolution_schedule_calibrate/schedule.json" )
-        subprocess.Popen(bashCommand.split(), cwd=workingDir, stdout=subprocess.PIPE)
-
 
     def wait_for_process(self, channel):
         process = self.get_process(channel)
