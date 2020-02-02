@@ -4,7 +4,7 @@ import yaml
 from flask import Flask, jsonify
 from flask import render_template
 from flask import request
-
+from schedule import *
 from functions import *
 
 # with open('configuration.yaml') as f:
