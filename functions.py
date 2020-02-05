@@ -92,10 +92,16 @@ def loadSchedule(filename):
     except:
         return {}
 
+def sanitize_load(s):
+    s = ' ' + s
+    for w in "OFF Off off".split():
+        s = s.replace(' ' + w + ':', ' "' + w + '":')
+        return yaml.safe_load(s[1:])
 
 def loadDataFromConfiguration():
     with open(config_file, 'r') as f:
-        return yaml.safe_load(f)
+        data = sanitize_load(f.read())
+        return data
 
 
 def save_to_json(filename, chartname, chartdescription, schedule):

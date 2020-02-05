@@ -24,15 +24,15 @@ class Process:
         return True
 
     def _start_process(self):
-        schedule_data = self._schedule.get_schedule()
-        if self._pause and len(schedule_data) > 0:
-            schedule_data[0].x = 999999999
+        schedule = self._schedule.get_schedule()
+        if self._pause and len(schedule) > 0:
+            schedule[0].x = 999999999
 
         with open("schedule.json", "w+") as file:
             json.dump({
                 "name": "last_schedule",
-                "description": "last run schedule_data for one of channels",
-                "schedule_data": schedule_data.get_output()
+                "description": "last run schedule for one of channels",
+                "schedule": schedule.get_output()
             }, file, indent=4)
 
         sleep_time = self._schedule.get_duration()
@@ -40,7 +40,7 @@ class Process:
             sleep_time = 999999999
 
         bash_command = "./realizeScheduledPh.py %s %s" % (
-        self._channel + 1, "/home/pi/physiolution_schedule_calibrate/schedule.json")
+        self._channel + 1, "/home/pi/MoWApEx/schedule.json")
         working_dir = "/home/pi/physio-grad/software/"
         self._process = subprocess.Popen(bash_command.split(), cwd=working_dir, stdout=subprocess.PIPE)
 
