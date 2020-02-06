@@ -10,9 +10,32 @@ let channelData = {"name": "New workout", schedule: []};
 let processInfo = {};
 let animation = null;
 
-function getGrafanaUrl() {
+let waitList = [];
+
+function isWait(channel)
+{
+    return waitList.indexOf(channel) >= 0
+}
+
+function addWait(channel)
+{
+    waitList.push(channel);
+}
+
+function removeWait(channel)
+{
+    let index = waitList.indexOf(channel);
+    if (index >= 0)
+    {
+        waitList.splice(index, 1)
+    }
+}
+
+function getGrafanaUrl()
+{
     let url = grafanaUrls[currentChannel + 1];
-    if (url === undefined) {
+    if (url === undefined)
+    {
         return grafanaUrls["default"];
     }
     return url;
@@ -58,13 +81,24 @@ function isEqual(first, second) {
     return false;
 }
 
+function waitAllProcess()
+{
+    Object.keys(processInfo).forEach(channel => {
+        if (processInfo[channel].alive) {
+            waitForKillProcess(channel);
+        }
+    });
+}
+
 function setProcessInfo(data) {
     processInfo = data;
     Object.keys(processInfo).forEach(channel => {
         processInfo[channel].data = {
             differenceTime: new Date().getTime() - (processInfo[channel].current_time * 1000)
         };
+        // processInfo[channel].startTime = new Date().getTime();
     });
+    waitAllProcess();
 }
 
 function setOneProcessInfo(data) {
@@ -279,10 +313,12 @@ function updateData() {
     // myChart.data.datasets[0].borderColor = isProcessAlive(currentChannel) ? "rgb(200, 200, 200)" : "rgb(75, 192, 192)";
     myChart.update();
 
-    if (isProcessPaused(currentChannel)) {
+    if (isProcessPaused(currentChannel))
+    {
         myChart.data.datasets[0].backgroundColor = generateGradient("rgba(255, 215, 96, 0.4)", "rgba(255, 255, 255, 0.4)");
         myChart.data.datasets[0].borderColor = generateGradient("rgb(255, 215, 96)", "rgb(200, 200, 200)");
-    } else {
+    }
+    else {
         myChart.data.datasets[0].backgroundColor = generateGradient("rgba(75, 192, 192, 0.4)", "rgba(255, 255, 255, 0.4)");
         myChart.data.datasets[0].borderColor = generateGradient("rgb(75, 192, 192)", "rgb(200, 200, 200)");
     }
@@ -534,10 +570,10 @@ function updateGrafana() {
     let url = new URL(getGrafanaUrl());
     let params = url.searchParams;
     if (isMonitoring()) {
-        params.set("from", "now-15m");
-        params.set("to", "now");
-        params.set("kiosk", "tv");
-        params.set("refresh", "3s");
+         params.set("from", "now-15m");
+         params.set("to", "now");
+         params.set("kiosk", "tv");
+         params.set("refresh", "3s");
 
         if (url.toString() !== document.getElementById("grafana").src) {
             document.getElementById("grafana").src = url.toString();
@@ -1251,25 +1287,39 @@ function updateButtons() {
     document.getElementById("openModal").disabled = alive || isLegendHidden();
 }
 
-function refreshAllProcess() {
-    $.ajax({
-        url: "/process_alive",
-        type: "GET",
-        success: function (data) {
-            setProcessInfo(data);
-            updateButtons();
+function waitForKillProcess(channel) {
+    channel = parseInt(channel);
+    if (isWait(channel)) {
+        return;
+    }
+    addWait(channel);
+    if (isProcessAlive(channel)) {
+        $.ajax({
+            url: "/wait_process",
+            type: "POST",
+            success: function (data) {
+                console.log("remove " + channel);
+                removeWait(channel);
 
-            setTimeout(refreshAllProcess, 1000);
-        }, error: function () {
-            setTimeout(refreshAllProcess, 1000);
-        },
-        contentType: "application/json",
-    });
+                setProcessInfo(data);
+                updateButtons();
+            },
+            error: function() {
+                removeWait(channel);
+                // waitAllProcess();
+            },
+            contentType: "application/json",
+            data: JSON.stringify({"channel": channel})
+        });
+    }
 }
 
 function onStart() {
     selectChannel(currentChannel);
     $.get("/process_alive", function (data) {
+        //TODO monitoring
+        console.log(data.monitoring);
+        console.log(data.monitoring.includes(currentChannel));
         startGrafana = data.monitoring.includes(currentChannel);
 
         // processInfo = data;
@@ -1278,7 +1328,6 @@ function onStart() {
     });
     loadListOfTemplates();
 
-    refreshAllProcess();
     // updateRecalibrateButton();
 }
 
