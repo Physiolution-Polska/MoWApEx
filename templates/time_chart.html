@@ -4,12 +4,12 @@
     <meta charset="utf-8"/>
     <title>pH manager</title>
     <!-- import plugin script -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-dragdata@1.0.1/dist/chartjs-plugin-dragData.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@0.7.4"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename = 'jquery-1.12.4.min.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'moment.min.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'Chart.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'chartjs-plugin-dragData.min.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'hammerjs@2.0.8') }}"></script>
+    <script src="{{ url_for('static', filename = 'chartjs-plugin-zoom@0.7.4') }}"></script>
 
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'css/main.css') }}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
