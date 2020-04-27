@@ -1,4 +1,4 @@
-# physiolution_schedule_calibrate
+# MoWApEx
 
 The project aims to create an application that allows you to collect data from s
 PhysioGrad (Physiolution GmbH), which is used to measure the temperature and pH of solutions and allows control of the valve assembly. The application should be optimized in terms of fast information processing and guarantee high availability, offer a web interface.
